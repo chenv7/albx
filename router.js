@@ -1,58 +1,24 @@
 const express = require('express');
 const router = express.Router();
+const pagesController = require('./controllers/pagesController');
 
+//读取views中的页面
+router.get('/',pagesController.getIndexPage)
+      .get('/list',pagesController.getListPage)
+      .get('/detail',pagesController.getDetailPage)
 
-//views里得页面渲染
-router.get('', (req, res) => {
-	res.render('index.ejs');
-});
-router.get('/detail', (req, res) => {
-	res.render('detail.ejs');
-});
-router.get('/list', (req, res) => {
-	res.render('list.ejs');
-});
-
-//views/admin里的页面渲染
-router.get('/admin/categories', (req, res) => {
-	res.render('admin/categories.ejs');
-});
-router.get('/admin/comments', (req, res) => {
-	res.render('admin/comments.ejs');
-});
-router.get('/admin/index', (req, res) => {
-	res.render('admin/index.ejs');
-});
-router.get('/admin/login', (req, res) => {
-	res.render('admin/login.ejs');
-});
-router.get('/admin/nav-menus', (req, res) => {
-	res.render('admin/nav-menus.ejs');
-});
-router.get('/admin/password-reset', (req, res) => {
-	res.render('admin/password-reset.ejs');
-});
-router.get('/admin/posts', (req, res) => {
-	res.render('admin/posts.ejs');
-});
-router.get('/admin/post-add', (req, res) => {
-	res.render('admin/post-add.ejs');
-});
-router.get('/admin/profile', (req, res) => {
-	res.render('admin/profile.ejs');
-});
-router.get('/admin/settings', (req, res) => {
-	res.render('admin/settings.ejs');
-});
-router.get('/admin/slides', (req, res) => {
-	res.render('admin/slides.ejs');
-});
-router.get('/admin/users', (req, res) => {
-	res.render('admin/users.ejs');
-});
-
-
-
-
+// 后台管理页面，统一添加admin做为前缀
+      .get('/admin',pagesController.getAdminPage)
+      .get('/admin/categories',pagesController.getCategoriesPage)
+      .get('/admin/comments',pagesController.getCommentsPage)
+      .get('/admin/login',pagesController.getLoginPage)
+      .get('/admin/nav-menus',pagesController.getNavMenusPage)
+      .get('/admin/password-reset',pagesController.getPasswordResetPage)
+      .get('/admin/post-add',pagesController.getPostAddPage)
+      .get('/admin/posts',pagesController.getPostsPage)
+      .get('/admin/profile',pagesController.getProfilePage)
+      .get('/admin/slides',pagesController.getSlidesPage)
+      .get('/admin/settings',pagesController.getSettingsPage)
+      .get('/admin/users',pagesController.getUsersPage)
 
 module.exports = router;
