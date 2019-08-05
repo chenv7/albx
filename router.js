@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const pagesController = require('./controllers/pagesController');
-
+const userController = require('./controllers/userController.js');
 //读取views中的页面
 router.get('/',pagesController.getIndexPage)
       .get('/list',pagesController.getListPage)
@@ -20,5 +20,8 @@ router.get('/',pagesController.getIndexPage)
       .get('/admin/slides',pagesController.getSlidesPage)
       .get('/admin/settings',pagesController.getSettingsPage)
       .get('/admin/users',pagesController.getUsersPage)
+
+      .post('/Login',userController.login)
+
 
 module.exports = router;

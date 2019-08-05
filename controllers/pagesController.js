@@ -10,8 +10,15 @@ module.exports.getDetailPage = (req,res)=>{
 }
 
 // 读取后台页面 后台首页
-module.exports.getAdminPage = (req,res)=>{
-    res.render('admin/index.ejs')
+exports.getAdminPage = (req,res)=>{
+    if(req.session.isLogin && req.session.isLogin =='true'){
+        res.render('admin/index.ejs')
+    }else{
+        res.writeHead(301,{
+            'Location' : '/admin/login'
+        })
+        res.end()
+    }
 }
 // 后台分类页面
 exports.getCategoriesPage = (req,res) => {
