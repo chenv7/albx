@@ -14,6 +14,7 @@ exports.login = (email,callback)=>{
 		if(err){
 			callback(err);
 		}else{
+			// console.log(result[0]);
 			callback(null,result[0]);
 		}
 	})

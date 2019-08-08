@@ -2,10 +2,12 @@ const express = require('express');
 const router = express.Router();
 const pagesController = require('./controllers/pagesController');
 const userController = require('./controllers/userController.js');
+const postsController = require('./controllers/postsController');
+const cateController = require('./controllers/cateCotroller');
 //读取views中的页面
 router.get('/',pagesController.getIndexPage)
-      .get('/list',pagesController.getListPage)
-      .get('/detail',pagesController.getDetailPage)
+  /*     .get('/list',pagesController.getListPage)
+      .get('/detail',pagesController.getDetailPage) */
 
 // 后台管理页面，统一添加admin做为前缀
       .get('/admin',pagesController.getAdminPage)
@@ -23,5 +25,7 @@ router.get('/',pagesController.getIndexPage)
 
       .post('/Login',userController.login)
 
-
+      .get('/getAllpost',postsController.getAllpost)
+      .get('/getAllCate',cateController.getAllCata)
+      
 module.exports = router;

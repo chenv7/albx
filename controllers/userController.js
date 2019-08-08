@@ -3,6 +3,7 @@ const userModel = require('../models/userModel');
 exports.login = (req,res)=>{
 	//通过中间件获得ajax收集、发送过来的数据
 	var obj = req.body;
+	// console.log(obj);
 	userModel.login(obj.email,(err,data)=>{
 		//可能是sql的语法错误导致出错
 		if(err){
@@ -13,8 +14,9 @@ exports.login = (req,res)=>{
 			if(data){
 				//再判断密码是否正确
 				if(data.password == obj.password){
-
-					req.session.isLogin = 'ture'
+					
+					req.session.isLogin = 'true'
+					// console.log(123)
 
 					req.session.currentUser = data
 					
