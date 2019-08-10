@@ -1,22 +1,36 @@
 const conn = require('../utils/myconn.js')
 
-exports.getAllpost = (obj,callback)=>{
-	var sql =`select posts.*,users.nickname,categories.name
-	from posts
-	join users on posts.user_id = users.id
-	join categories on posts.category_id = categories.id
-	order by id desc
-	limit ${(obj.pageNum-1)*obj.pageSize},${obj.pageSize}`
-	
+exports.getAllPost = (obj,callback)=>{
+	// console.log(obj)
+	var sql = `select posts.*,users.nickname,categories.name
+		from posts
+		join users on posts.user_id = users.id
+		join categories on posts.category_id = categories.id
+		where 1=1  `
+	if(obj.cate && obj.cate != 'all'){
+		sql += `  and category_id = ${obj.cate}`
+	}
+	if(obj.status && obj.status != 'all'){
+		sql += `  and posts.status = ${obj.status}`
+	}
+	sql += `  order by id desc
+			limit ${(obj.pageNum-1)*obj.pageSize},${obj.pageSize}`
+
 	conn.query(sql,(err,result)=>{
 		if(err){
 			callback(err)
 		}else{
-			sql =`select count(*) as cnt
-				from posts
-				join users on posts.user_id = users.id
-				join categories on posts.category_id = categories.id
-			`
+			sql = `select count(*) as cnt
+                    from posts
+                    join users on posts.user_id = users.id
+                    join categories on posts.category_id = categories.id
+                    where 2=2  `
+            if( obj.cate && obj.cate != 'all'){ // 有没有传递分类数据
+                sql += ` and category_id = ${obj.cate}`
+            }
+            if(obj.status && obj.status != 'all'){
+                sql += ` and posts.status ='${obj.status}'`
+            }
 			conn.query(sql,(err,res2)=>{
 				if(err){
 					callback(err);
@@ -27,3 +41,15 @@ exports.getAllpost = (obj,callback)=>{
 		}
 	})
 }
+
+exports.addPost = (obj,callback)=>{
+	let sql = `insert into posts set ?`;
+	conn.query(sql,obj,(err,results)=>{
+		if(err){
+			callback(err)
+		}else{
+			callback(null)
+		}
+	})
+}
+

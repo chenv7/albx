@@ -3,7 +3,8 @@ const router = express.Router();
 const pagesController = require('./controllers/pagesController');
 const userController = require('./controllers/userController.js');
 const postsController = require('./controllers/postsController');
-const cateController = require('./controllers/cateCotroller');
+const cateController = require('./controllers/cateController');
+const uploadController = require('./controllers/uploadController')
 //读取views中的页面
 router.get('/',pagesController.getIndexPage)
   /*     .get('/list',pagesController.getListPage)
@@ -24,8 +25,15 @@ router.get('/',pagesController.getIndexPage)
       .get('/admin/users',pagesController.getUsersPage)
 
       .post('/Login',userController.login)
-
-      .get('/getAllpost',postsController.getAllpost)
-      .get('/getAllCate',cateController.getAllCata)
+      //数据收据
+      .get('/getAllPost',postsController.getAllPost)
+      //增加分类数据收集
+      .get('/getAllCate',cateController.getAllCate)
+      //添加到数据库
+      .post('/addPost',postsController.addPost)
+      //文件数据
+      .post('/uploadFile',uploadController.uploadFile)
+      //修改----先获取id
+      .get('/getPostById',postsController.getPostById)
       
 module.exports = router;
