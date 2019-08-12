@@ -35,5 +35,16 @@ router.get('/',pagesController.getIndexPage)
       .post('/uploadFile',uploadController.uploadFile)
       //修改----先获取id
       .get('/getPostById',postsController.getPostById)
-      
+
+      //实现文章编辑
+      .post('/editPostById',postsController.editPostById)
+      .get('/deleteById',postsController.deleteById)
+
+      //实现分类目录的增删改
+      //实现分类文章修改
+      .post('/editCate',cateController.editCate)
+      //实现分类文章增加
+      .post('/addCate',cateController.addCate)
+      //实现分类文章删除
+      .get('/delCateById',cateController.delCateById)
 module.exports = router;

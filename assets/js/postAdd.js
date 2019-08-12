@@ -49,12 +49,22 @@ $(function () {
 
 	//创建ckeditor富文本框控件替换页面中的textarea
 	CKEDITOR.replace('content');
+	var id = itcast.getParameter(location.search).id
+	// console.log(id)
 
 	$('.btnSave').on('click', function () {
 		CKEDITOR.instances.content.updateElement();
+		if(id){
+			opt('/editPostById')
+		}else{
+			opt('/addPost')
+		}	
+	});
+
+	function opt(url){
 		$.ajax({
 			type: 'post',
-			url: '/addPost',
+			url: url,
 			data: $('form').serialize(),
 			dataType: 'json',
 			success: function (res) {
@@ -65,5 +75,26 @@ $(function () {
 				}
 			}
 		});
-	});
+	}
+	if(id){
+		$.ajax({
+			url : '/getPostById',
+			data : {id},
+			dataType : 'json',
+			success : function(res){
+				//实现数据默认展示
+				$('#title').val(res.data.title)
+				$('#content').val(res.data.content)
+				$('#slug').val(res.data.slug)
+				$('.thumbnail').attr('src','/uploads/'+res.data.feature).show()
+				$('#category').val(res.data.category_id)
+				$('#status').val(res.data.status)
+				//图片隐藏域
+				$('[name=feature]').val(res.data.feature)
+				$('[name="id"]').val(res.data.id)
+				//时间处理
+				$('#created').val(res.data.created)
+			}
+		})
+	}
 });

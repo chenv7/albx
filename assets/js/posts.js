@@ -1,7 +1,7 @@
 $(function(){
 
 	var pageNum = 1;//设置一个公共页面数
-	var pageSize = 10;//设置一个公共当页内容数
+	var pageSize = 3;//设置一个公共当页内容数
     //将收集数据的阿贾克斯封装
 	function init(search){
         $.ajax({
@@ -72,5 +72,30 @@ $(function(){
         //调用ajax并发送数据
         init(obj);
     })
+
+    //实现删除,用委托
+    $('tbody').on('click','.btndel',function(){
+      var id = $(this).data('id')
+      if(confirm('是否删除?')){
+        $.ajax({
+            url:'/deleteById?id='+id,
+            dataType:'json',
+            type:'get',
+            success: function(res){
+                if(res.code == 200){
+                    $('.alert-danger > span').text(res.msg)
+                    $('.alert-danger').fadeIn(500).delay(3000).fadeOut(500)
+                    if(($('tbody>tr')).length == 1){
+                        if(pageNum > 1){
+                            pageNum--
+                        }
+                    }
+                    init()
+                }
+            }
+        })
+      }
+    })
+
 })
 

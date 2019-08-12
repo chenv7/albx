@@ -14,5 +14,18 @@ var itcast = {
 		}
 		//返回所求得名字
 		return routerName;
-	}
+	},
+	getParameter:(str) => {
+        var obj = {}
+        str = str.substring(1) // id=5&name=jack
+        // 按&符号进行分隔
+        let temp = str.split('&') // ['id=5','name=jack']
+        // 遍历
+        for(var i=0;i< temp.length;i++){
+            let arr = temp[i].split('=') // ['id',5] 
+            obj[arr[0]] = arr[1]
+        }
+		return obj
+		// console.log(obj)
+    }
 }

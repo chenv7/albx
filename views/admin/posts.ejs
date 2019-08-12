@@ -64,13 +64,13 @@
     <td class="text-center">{{value.created}}</td>
     <td class="text-center">{{value.status=='published'?'已发布':'草稿'}}</td>
     <td class="text-center">
-      <a href="javascript:;" class="btn btn-default btn-xs">编辑</a>
-      <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
+      <a href="/admin/post-add?id={{value.id}}" class="btn btn-default btn-xs btnEdit">编辑</a>
+      <a href="javascript:;" class="btn btn-danger btn-xs btndel" data-id="{{value.id}}">删除</a>
     </td>
   </tr>
   {{/each}}
 </script>
 <script src="../../assets/vendors/bootstrappaginator/bootstrap-paginator.min.js"></script>
-<script src="/assets/js/posts.js"></script>
 <script src="/assets/js/template.js"></script>
+<script src="/assets/js/posts.js"></script>
 

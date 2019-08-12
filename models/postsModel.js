@@ -53,3 +53,37 @@ exports.addPost = (obj,callback)=>{
 	})
 }
 
+//获取postId
+exports.getPostById = (id,callback)=>{
+	let sql = `select * from posts where id =`+id
+	conn.query(sql,(err,results)=>{
+		if(err){
+			callback(err)
+		}else{
+			//查询到了数据之后，还要返回数据
+			callback(null,results[0]);
+		}
+	})
+}
+
+exports.editPostById = (obj,callback)=>{
+	let sql = `updata posts set ? where id = ?`
+	conn.query(sql,[obj,obj.id],(err,results)=>{
+		if(err){
+			callback(err)
+		}else{
+			callback(null)
+		}
+	})
+}
+
+exports.deleteById = (id,callback)=>{
+	let sql = 'delete from posts where id = ?'
+	conn.query(sql,[id],(err)=>{
+		if(err){
+			callback(err)
+		}else{
+			callback(null)
+		}
+	})
+}

@@ -31,3 +31,40 @@ exports.addPost = (req,res)=>{
 		}
 	})
 }
+//实现修改之前
+//先获取id
+exports.getPostById=(req,res)=>{
+	//获取id
+	var id = req.query.id
+	postsModel.getPostById(id,(err,data)=>{
+		if(err){
+			// 将日期数据格式化
+            data.created = moment(data.created).format('YYYY-MM-DDTHH:mm')
+			res.json({code : 400, msg : '获取id失败'})
+		}else{
+			res.json({code : 200, msg : '获取id成功',data:data})
+		}
+	})
+}
+
+exports.editPostById=(req,res)=>{
+	//获取请求体中的参数
+	var obj = req.body
+	postsModel.editPostById(obj,(err)=>{
+		if(err){
+			res.json({code : 400, msg : '修改失败'})
+		}else{
+			res.json({code : 200, msg : '修改成功'})
+		}
+	})
+}
+exports.deleteById=(req,res)=>{
+	var id = req.query.id
+	postsModel.deleteById(id,(err)=>{
+		if(err){
+			res.json({code : 400, mgs : '删除失败'})
+		}else{
+			res.json({code : 200, msg : '删除成功'})
+		}
+	})
+}
